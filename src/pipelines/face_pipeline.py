@@ -10,7 +10,7 @@ from pkg_resources import resource_filename
 def load_dlib_models():
     detector = dlib.get_frontal_face_detector()
 
-    sp = dlib.face_predictor(
+    sp = dlib.shape_predictor(
         face_recognition_models.pose_predictor_model_location()
 
     )
@@ -33,7 +33,7 @@ def get_face_embeddings(image_np):
 
         face_descriptor = facerec.compute_face_descriptor(image_np,shape,1) #128embedding
         encodings.append(np.array(face_descriptor))
-        return encodings
+    return encodings
 
 def get_trained_model():
     X = []
@@ -82,7 +82,7 @@ def predict_attendance(class_image_np):
 
     for encoding in encodings:
         if len(all_students)>=2:
-            predicted_id = int(clf.predict([encodings])[0])
+            predicted_id = int(clf.predict([encoding])[0])
         else:
             predicted_id = int(all_students[0])
 

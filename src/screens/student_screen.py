@@ -30,6 +30,8 @@ def student_screen():
     st.space()
     st.space()
 
+    show_registration = False
+
     photo_source = st.camera_input("Position your face in the center")
 
     if photo_source:
@@ -76,7 +78,7 @@ def student_screen():
             except Exception:
                 st.error('Audio data failed!')
 
-            if st.button('Create Account',type=primary):
+            if st.button('Create Account',type='primary'):
                 if new_name:
                     with st.spinner('Creating profile..'):
                         img = np.array(Image.open(photo_source))
@@ -96,7 +98,7 @@ def student_screen():
                                 st.session_state.student_data = response_data[0]
                                 st.toast(f'Profile Created! Hi {new_name}!')
                                 import time
-                                time_sleep(1)
+                                time.sleep(1)
                                 st.rerun()
                         
                         else:
