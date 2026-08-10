@@ -2,6 +2,7 @@ import streamlit as st
 from src.ui.base_layout import style_background_dashboard,style_base_layout
 from src.components.header import header_dashboard
 from src.components.footer import footer_dashboard
+from src.components.subject_card import subject_card
 from src.database.db import check_teacher_exists,create_teacher,teacher_login,get_teacher_subjects,create_student
 from src.components.dialog_create_subject import create_subject_dialog
 def teacher_screen():
@@ -45,7 +46,7 @@ def teacher_dashboard():
             st.session_state.current_teacher_tab = 'manage_subjects'
             st.rerun()
 
-    with tab1:
+    with tab3:
         type3 = 'primary' if st.session_state.current_teacher_tab=='attendance_records' else 'tertiary'
         if st.button("Attendance Records",type = type3,width = 'stretch',icon = ':material/cards_stack:'):
             st.session_state.current_teacher_tab = 'attendance_records'
