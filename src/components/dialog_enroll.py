@@ -1,5 +1,5 @@
 import streamlit as st
-from supabase.database.config import supabase
+from src.database.config import supabase
 import time
 from src.database.db import enroll_student_to_subject
 @st.dialog('Enroll in Subject')
@@ -13,17 +13,20 @@ def enroll_dialog():
             res = supabase.table('subjects').select('subject_id,name,subject_code').eq('subject_code',join_code).execute()
             if res.data:
                 subject = res.data[0]
-                student_id = st.session_state.subject['subject_id']
+                student_id = st.session_state.student_data['student_id']
 
                 check = supabase.table("subject_students").select('*').eq('subject_id',subject['subject_id']).eq('student_id',student_id).execute()
-                 if check.data:
+                if check.data:
                     st.warning('You are already enrolled in this program')
 
-                 else:
-                    enroll_student_to_subject('subject_id',subject['subject_id'])
+                else:
+                    enroll_student_to_subject(student_id,subject['subject_id'])
                     st.success('Successfully! Enrolled')
-                    st.timesleep(1)
+                    time.sleep(1)
                     st.rerun()
+            
+            else:
+                st.error("Invalid Subject Code")
     
         else:
 
