@@ -1,3 +1,9 @@
+import sys
+from pathlib import Path
+
+# Project root folder ko Python search path mein add kar rahe hain
+sys.path.append(str(Path(__file__).resolve().parent))
+
 import streamlit as st
 from src.screens.home_screen import home_screen
 from src.screens.student_screen import student_screen
