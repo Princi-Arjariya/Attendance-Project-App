@@ -56,10 +56,10 @@ def student_dashboard():
         sid = sub.get('subject_id')
 
         stats = stats_map.get(sid,{'total':0,'attended':0})
-        def unenroll_btn():
-            if st.button("Unenroll from this course",type='tertiary',width='stretch',icon = ':material/delete_forever:'):
+        def unenroll_btn(sid=sid, s_name = sub['name']):
+            if st.button("Unenroll from this course",type='tertiary',width='stretch',icon = ':material/delete_forever:',key=f"unenroll_btn_{sid}"):
                 unenroll_student_to_subject(student_id, sid)
-                st.toast(f"Unenrolled from {sub['name']} successfully!")
+                st.toast(f"Unenrolled from {s_name} successfully!")
                 st.rerun()
 
 
@@ -156,7 +156,12 @@ def student_screen():
 
                             voice_emb  = None
                             if audio_data:
-                                voice_emb = get_voice_embedding(audio_data.read())
+                                try:
+                                    audio_bytes = audio_data.getvalue() if hasattr(audio_data, 'getvalue') else audio_data.read()
+                                    voice_emb = get_voice_embedding(audio_bytes)
+                                except Exception as e:
+                                    st.error(f"Failed to process voice data: {e}")
+                                    voice_emb = None
                             
                             response_data = create_student(new_name,face_embedding=face_emb,voice_embedding = voice_emb)
                             if response_data:
