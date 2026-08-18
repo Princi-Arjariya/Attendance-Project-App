@@ -17,7 +17,7 @@ def style_background_home():
                 
                 }
             
-        </style
+        </style>
         """
     ,unsafe_allow_html = True)
 
@@ -30,7 +30,7 @@ def style_background_dashboard():
                 background:#E0E3FF !important;
             }
             
-        </style
+        </style>
         """
     ,unsafe_allow_html = True)
 
@@ -52,9 +52,11 @@ def style_base_layout():
                 }
             h1 {
                font-family:'Climate Crisis', sans-serif !important;
+               color: #2D3748 !important; /* White ki jagah dark color */
+                font-weight: 800 !important;
                font-size:3.5rem !important;
-               line-height:1.1 !important;
-               margin-bottom:0rem !important;}
+               line-height:1.2 !important;
+               margin-bottom:0.5rem !important;}
 
             h2 {
                font-family:'Climate Crisis', sans-serif !important;
